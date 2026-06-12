@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../widgets/hero_section.dart';
 import '../widgets/trending_section.dart';
 import '../widgets/features_section.dart';
@@ -11,25 +11,22 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    // CupertinoPageScaffold — reemplaza Scaffold
+    return CupertinoPageScaffold(
       backgroundColor: AppTheme.netflixBlack,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            // 1. Hero con navbar, imagen local + red, titulo y formulario
-            HeroSection(),
-            // 2. Seccion Tendencias — ListView horizontal con Cards y ranking
-            TrendingSection(),
-            // 3. Seccion "Mas motivos" — ListView horizontal de Cards
-            FeaturesSection(),
-            // 4. Seccion FAQ — ListView con ListTiles expandibles
-            FaqSection(),
-            // 5. CTA email repetido (footer superior)
-            FooterEmailSection(),
-            // 6. Footer con links y telefono
-            FooterSection(),
-          ],
+      child: CupertinoScrollbar(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              HeroSection(),
+              TrendingSection(),
+              FeaturesSection(),
+              FaqSection(),
+              FooterEmailSection(),
+              FooterSection(),
+            ],
+          ),
         ),
       ),
     );

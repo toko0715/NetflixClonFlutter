@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
@@ -8,101 +8,30 @@ class AppTheme {
   static const Color netflixGray = Color(0xFF333333);
   static const Color netflixMediumGray = Color(0xFF2D2D2D);
   static const Color netflixLightGray = Color(0xFF757575);
-  static const Color netflixWhite = Color(0xFFFFFFFF);
+  static const Color netflixWhite = CupertinoColors.white;
   static const Color cardBg = Color(0xFF1A1A3E);
 
-  static ThemeData get darkTheme {
-    return ThemeData(
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: netflixBlack,
-      primaryColor: netflixRed,
-      colorScheme: const ColorScheme.dark(
-        primary: netflixRed,
-        secondary: netflixRed,
-        surface: netflixDarkGray,
-      ),
-      textTheme: TextTheme(
-        // Fuente 1: Bebas Neue — titulos hero y numeros de ranking
-        displayLarge: GoogleFonts.bebasNeue(
-          fontSize: 64,
-          color: netflixWhite,
-          letterSpacing: 2,
-        ),
-        displayMedium: GoogleFonts.bebasNeue(
-          fontSize: 52,
-          color: netflixWhite,
-          letterSpacing: 1.5,
-        ),
-        displaySmall: GoogleFonts.bebasNeue(
-          fontSize: 38,
-          color: netflixWhite,
-          letterSpacing: 1,
-        ),
-        // Fuente 2: Montserrat — secciones, titulos de cards y botones
-        headlineLarge: GoogleFonts.montserrat(
-          fontSize: 26,
-          fontWeight: FontWeight.bold,
-          color: netflixWhite,
-        ),
-        headlineMedium: GoogleFonts.montserrat(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: netflixWhite,
-        ),
-        headlineSmall: GoogleFonts.montserrat(
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-          color: netflixWhite,
-        ),
-        titleLarge: GoogleFonts.montserrat(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-          color: netflixWhite,
-        ),
-        titleMedium: GoogleFonts.montserrat(
-          fontSize: 13,
-          fontWeight: FontWeight.w600,
-          color: netflixWhite,
-        ),
-        // Fuente 3: Roboto — cuerpo, descripciones y etiquetas
-        bodyLarge: GoogleFonts.roboto(
-          fontSize: 16,
-          color: netflixWhite,
-        ),
-        bodyMedium: GoogleFonts.roboto(
-          fontSize: 14,
-          color: Color(0xFFE0E0E0),
-        ),
-        bodySmall: GoogleFonts.roboto(
-          fontSize: 12,
-          color: netflixLightGray,
-        ),
-        labelLarge: GoogleFonts.roboto(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-          color: netflixWhite,
-        ),
-        labelMedium: GoogleFonts.roboto(
-          fontSize: 12,
-          color: netflixLightGray,
-        ),
-      ),
-      cardTheme: const CardThemeData(
-        color: cardBg,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
-        elevation: 4,
-      ),
-      dividerTheme: const DividerThemeData(
-        color: netflixGray,
-        thickness: 8,
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(color: netflixWhite),
-      ),
-    );
-  }
+  // CupertinoThemeData — reemplaza ThemeData
+  static const CupertinoThemeData cupertinoTheme = CupertinoThemeData(
+    brightness: Brightness.dark,
+    primaryColor: netflixRed,
+    scaffoldBackgroundColor: netflixBlack,
+    barBackgroundColor: netflixBlack,
+    textTheme: CupertinoTextThemeData(
+      primaryColor: CupertinoColors.white,
+      textStyle: TextStyle(color: CupertinoColors.white, fontSize: 16),
+    ),
+  );
+
+  // Fuente 1: Bebas Neue — titulos hero y rankings
+  static TextStyle heroTitle({double fontSize = 52}) =>
+      GoogleFonts.bebasNeue(fontSize: fontSize, color: netflixWhite, letterSpacing: 1);
+
+  // Fuente 2: Montserrat — secciones, cards y botones
+  static TextStyle sectionTitle({double fontSize = 24}) =>
+      GoogleFonts.montserrat(fontSize: fontSize, fontWeight: FontWeight.bold, color: netflixWhite);
+
+  // Fuente 3: Roboto — cuerpo y descripciones
+  static TextStyle bodyText({double fontSize = 14, Color? color}) =>
+      GoogleFonts.roboto(fontSize: fontSize, color: color ?? netflixWhite, height: 1.5);
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class AppData {
   // Lista de peliculas en tendencia (List of Maps)
@@ -115,28 +115,28 @@ class AppData {
       'title': 'Disfruta en tu TV',
       'description':
           'Ve en smart TV, PlayStation, Xbox, Chromecast, Apple TV, reproductores de Blu-ray y más.',
-      'icon': Icons.tv,
+      'icon': CupertinoIcons.tv,
       'gradient': [Color(0xFF1A1A3E), Color(0xFF2D1B4E)],
     },
     {
       'title': 'Descarga tus series para verlas offline',
       'description':
           'Guarda tu contenido favorito y siempre tendrás algo para ver.',
-      'icon': Icons.download_rounded,
+      'icon': CupertinoIcons.arrow_down_circle_fill,
       'gradient': [Color(0xFF1A1A3E), Color(0xFF3D1B5E)],
     },
     {
       'title': 'Disfruta donde quieras',
       'description':
           'Películas y series ilimitadas en tu teléfono, tablet, laptop y TV.',
-      'icon': Icons.devices_rounded,
+      'icon': CupertinoIcons.device_phone_portrait,
       'gradient': [Color(0xFF1A1A3E), Color(0xFF2D1B4E)],
     },
     {
       'title': 'Crea perfiles para niños',
       'description':
           'Los niños vivirán aventuras con sus personajes favoritos en un espacio diseñado exclusivamente para ellos, gratis con tu membresía.',
-      'icon': Icons.child_care_rounded,
+      'icon': CupertinoIcons.smiley,
       'gradient': [Color(0xFF1A1A3E), Color(0xFF3D1B5E)],
     },
   ];

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'theme/app_theme.dart';
 import 'screens/home_screen.dart';
@@ -6,10 +6,9 @@ import 'screens/detail_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // Barra de estado transparente para el efecto hero de Netflix
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: CupertinoColors.transparent,
       statusBarIconBrightness: Brightness.light,
     ),
   );
@@ -21,17 +20,27 @@ class NetflixApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    // CupertinoApp — reemplaza MaterialApp
+    return CupertinoApp(
       title: 'Netflix',
       debugShowCheckedModeBanner: false,
-      // Tema Global de la aplicacion
-      theme: AppTheme.darkTheme,
-      // Rutas de la aplicacion
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/detail': (context) => const DetailScreen(),
+      theme: AppTheme.cupertinoTheme,
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return CupertinoPageRoute(
+              builder: (_) => const HomeScreen(),
+              settings: settings,
+            );
+          case '/detail':
+            return CupertinoPageRoute(
+              builder: (_) => const DetailScreen(),
+              settings: settings,
+            );
+        }
+        return null;
       },
+      initialRoute: '/',
     );
   }
 }

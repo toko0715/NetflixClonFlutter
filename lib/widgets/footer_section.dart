@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
 import '../data/app_data.dart';
 import '../theme/app_theme.dart';
 
@@ -10,65 +9,42 @@ class FooterEmailSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppTheme.netflixBlack,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 36),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
       child: Column(
         children: [
           Text(
             '¿Quieres ver Netflix ya? Ingresa tu email para crear una cuenta o reiniciar tu membresía de Netflix.',
             textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-              fontSize: 16,
-              color: Colors.white,
-              height: 1.5,
-            ),
+            style: AppTheme.bodyText(fontSize: 15),
           ),
-          const SizedBox(height: 18),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Email',
-              hintStyle: GoogleFonts.roboto(color: Colors.grey[500]),
-              filled: true,
-              fillColor: Colors.black,
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.grey),
-                borderRadius: BorderRadius.circular(3),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.grey),
-                borderRadius: BorderRadius.circular(3),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 16,
-              ),
-            ),
+          const SizedBox(height: 16),
+          // CupertinoTextField
+          CupertinoTextField(
+            placeholder: 'Email',
+            placeholderStyle: AppTheme.bodyText(color: CupertinoColors.systemGrey),
             keyboardType: TextInputType.emailAddress,
-            style: GoogleFonts.roboto(color: Colors.white),
+            style: AppTheme.bodyText(),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: AppTheme.netflixBlack,
+              border: Border.all(color: CupertinoColors.systemGrey),
+              borderRadius: BorderRadius.circular(4),
+            ),
           ),
           const SizedBox(height: 10),
+          // CupertinoButton
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: CupertinoButton(
+              color: AppTheme.netflixRed,
+              borderRadius: BorderRadius.circular(4),
+              padding: const EdgeInsets.symmetric(vertical: 14),
               onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.netflixRed,
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3),
-                ),
-              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Comenzar',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right, color: Colors.white, size: 24),
+                  Text('Comenzar', style: AppTheme.sectionTitle(fontSize: 18)),
+                  const Icon(CupertinoIcons.chevron_right, color: CupertinoColors.white, size: 22),
                 ],
               ),
             ),
@@ -90,66 +66,60 @@ class FooterSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Divider(color: AppTheme.netflixGray, thickness: 1),
+          Container(height: 1, color: AppTheme.netflixMediumGray),
           const SizedBox(height: 16),
-          // Telefono
-          Text(
-            '¿Preguntas? Llama al 0 800 55821',
-            style: GoogleFonts.roboto(
-              fontSize: 14,
-              color: AppTheme.netflixLightGray,
-            ),
-          ),
-          const SizedBox(height: 20),
-          // Grid de links usando Wrap
+          Text('¿Preguntas? Llama al 0 800 55821',
+              style: AppTheme.bodyText(fontSize: 13, color: AppTheme.netflixLightGray)),
+          const SizedBox(height: 18),
           Wrap(
-            spacing: 0,
-            runSpacing: 0,
             children: AppData.footerLinks.map((link) {
               return SizedBox(
                 width: (MediaQuery.of(context).size.width - 40) / 2,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: GestureDetector(
-                    onTap: () {},
+                  child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size.zero,
+                    alignment: Alignment.centerLeft,
+                    onPressed: () {},
                     child: Text(
                       link['text']!,
-                      style: GoogleFonts.roboto(
-                        fontSize: 13,
-                        color: AppTheme.netflixLightGray,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppTheme.netflixLightGray,
-                      ),
+                      style: AppTheme.bodyText(fontSize: 12, color: AppTheme.netflixLightGray)
+                          .copyWith(decoration: TextDecoration.underline,
+                              decorationColor: AppTheme.netflixLightGray),
                     ),
                   ),
                 ),
               );
             }).toList(),
           ),
-          const SizedBox(height: 16),
-          // Selector de idioma footer
-          OutlinedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.language, size: 15, color: Colors.white),
-            label: Text(
-              'Español',
-              style: GoogleFonts.roboto(color: Colors.white, fontSize: 13),
+          const SizedBox(height: 14),
+          // Selector idioma con CupertinoButton
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: CupertinoColors.systemGrey),
+              borderRadius: BorderRadius.circular(4),
             ),
-            style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Colors.grey, width: 1),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(3),
+            child: CupertinoButton(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              minimumSize: Size.zero,
+              onPressed: () {},
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(CupertinoIcons.globe, size: 15, color: CupertinoColors.white),
+                  const SizedBox(width: 6),
+                  Text('Español', style: AppTheme.bodyText(fontSize: 13)),
+                  const SizedBox(width: 4),
+                  const Icon(CupertinoIcons.chevron_down, size: 12, color: CupertinoColors.white),
+                ],
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
           Text(
             'Esta página está protegida por Google reCAPTCHA para comprobar que no eres un robot.',
-            style: GoogleFonts.roboto(
-              fontSize: 11,
-              color: AppTheme.netflixLightGray,
-            ),
+            style: AppTheme.bodyText(fontSize: 11, color: AppTheme.netflixLightGray),
           ),
         ],
       ),

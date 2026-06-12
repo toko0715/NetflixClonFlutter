@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
 import '../data/app_data.dart';
+import '../theme/app_theme.dart';
 
 class FeaturesSection extends StatelessWidget {
   const FeaturesSection({super.key});
@@ -14,23 +14,19 @@ class FeaturesSection extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Más motivos para unirte',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
+            child: Text('Más motivos para unirte', style: AppTheme.sectionTitle()),
           ),
           const SizedBox(height: 14),
-          // ListView horizontal de Cards de características
           SizedBox(
             height: 230,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              itemCount: AppData.features.length,
-              itemBuilder: (context, index) {
-                final feature = AppData.features[index];
-                return _FeatureCard(feature: feature);
-              },
+            child: CupertinoScrollbar(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                itemCount: AppData.features.length,
+                itemBuilder: (context, index) =>
+                    _FeatureCupertinoCard(feature: AppData.features[index]),
+              ),
             ),
           ),
         ],
@@ -39,65 +35,49 @@ class FeaturesSection extends StatelessWidget {
   }
 }
 
-class _FeatureCard extends StatelessWidget {
+class _FeatureCupertinoCard extends StatelessWidget {
   final Map<String, dynamic> feature;
-  const _FeatureCard({required this.feature});
+  const _FeatureCupertinoCard({required this.feature});
 
   @override
   Widget build(BuildContext context) {
     final colors = feature['gradient'] as List<Color>;
     final icon = feature['icon'] as IconData;
 
-    return Card(
+    return Container(
+      width: 220,
       margin: const EdgeInsets.symmetric(horizontal: 6),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: Container(
-        width: 220,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: colors,
+      // Estilo iOS: bordes mas redondeados (12px) y sombra suave
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: colors,
+        ),
+        boxShadow: const [
+          BoxShadow(color: Color(0x4D000000), blurRadius: 12, offset: Offset(0, 4)),
+        ],
+      ),
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Titulo — Montserrat
+          Text(feature['title'] as String,
+              style: AppTheme.sectionTitle(fontSize: 16).copyWith(height: 1.3)),
+          const SizedBox(height: 10),
+          // Descripcion — Roboto
+          Expanded(
+            child: Text(feature['description'] as String,
+                style: AppTheme.bodyText(fontSize: 13, color: const Color(0xDCFFFFFF))),
           ),
-        ),
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Titulo de la caracteristica — Fuente 2: Montserrat
-            Text(
-              feature['title'] as String,
-              style: GoogleFonts.montserrat(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                height: 1.3,
-              ),
-            ),
-            const SizedBox(height: 10),
-            // Descripcion — Fuente 3: Roboto
-            Expanded(
-              child: Text(
-                feature['description'] as String,
-                style: GoogleFonts.roboto(
-                  fontSize: 13,
-                  color: Colors.white.withAlpha(220),
-                  height: 1.4,
-                ),
-              ),
-            ),
-            // Icono de la caracteristica
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Icon(
-                icon,
-                size: 42,
-                color: Colors.purple[200],
-              ),
-            ),
-          ],
-        ),
+          // Icono CupertinoIcons (SF Symbols estilo Apple)
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Icon(icon, size: 42, color: const Color(0xFFCE93D8)),
+          ),
+        ],
       ),
     );
   }
